@@ -1,0 +1,95 @@
+/* 테마 토큰: 색상은 여기서만 정의하고 다른 파일은 변수만 참조한다 */
+:root {
+  --bg: #fcfcfb;
+  --surface: #f4f4f1;
+  --text: #1f2328;
+  --text-muted: #636b74;
+  --border: #e4e4e0;
+  --accent: #2563eb;
+  --accent-soft: #e8efff;
+  --code-bg: #f1f1ee;
+  --quote-bar: #c9ccd1;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard",
+    "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --content-width: 42rem;
+  --radius: 8px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #121315;
+  --surface: #1b1c1f;
+  --text: #e6e7e9;
+  --text-muted: #9aa0a8;
+  --border: #2c2e33;
+  --accent: #7aa7ff;
+  --accent-soft: #1c2840;
+  --code-bg: #1d1f23;
+  --quote-bar: #44474d;
+  color-scheme: dark;
+}
+
+/* 저장된 선택이 없을 때만 시스템 설정을 따른다 (theme.js가 data-theme을 설정) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #121315;
+    --surface: #1b1c1f;
+    --text: #e6e7e9;
+    --text-muted: #9aa0a8;
+    --border: #2c2e33;
+    --accent: #7aa7ff;
+    --accent-soft: #1c2840;
+    --code-bg: #1d1f23;
+    --quote-bar: #44474d;
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
