@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>갤러그</title>
+  <script>
+    // FOUC 방지: 블로그가 저장한 테마를 CSS 로드 전에 반영
+    (function () {
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app" id="app">
+    <header class="app__header">
+      <h1 class="app__title">갤러그</h1>
+      <div class="app__tools">
+        <button class="btn btn--small" id="sound-btn" type="button" aria-pressed="true">소리 켜짐</button>
+        <button class="btn btn--small" id="pause-btn" type="button" disabled>일시정지</button>
+      </div>
+    </header>
+
+    <section class="hud" aria-label="점수판">
+      <div class="hud__item">
+        <span class="hud__label">점수</span>
+        <span class="hud__value" id="score">0</span>
+      </div>
+      <div class="hud__item">
+        <span class="hud__label">최고</span>
+        <span class="hud__value" id="best">0</span>
+      </div>
+      <div class="hud__item">
+        <span class="hud__label">목숨</span>
+        <span class="hud__value"><span class="hud__icons" id="lives-icons" aria-hidden="true"></span><span id="lives">5</span></span>
+      </div>
+      <div class="hud__item">
+        <span class="hud__label">스테이지</span>
+        <span class="hud__value" id="stage">1</span>
+      </div>
+    </section>
+
+    <div class="stage" id="stage-box">
+      <canvas id="canvas" width="480" height="640" role="img" aria-label="갤러그 게임 화면. 아래쪽 기체를 좌우로 움직이며 위에서 내려오는 적을 쏘아 맞히세요."></canvas>
+      <div class="overlay" id="overlay">
+        <p class="overlay__title" id="overlay-title">갤러그</p>
+        <p class="overlay__text" id="overlay-text">적 편대를 전멸시키세요. 목숨은 5개입니다.</p>
+        <div class="overlay__actions">
+          <button class="btn btn--primary" id="overlay-primary" type="button">시작</button>
+          <button class="btn" id="overlay-secondary" type="button" hidden>다시 시작</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls" id="controls">
+      <button class="pad" id="btn-left" type="button" aria-label="왼쪽으로 이동">&#9664;</button>
+      <button class="pad pad--fire" id="btn-fire" type="button" aria-label="발사">발사</button>
+      <button class="pad" id="btn-right" type="button" aria-label="오른쪽으로 이동">&#9654;</button>
+    </div>
+
+    <p class="app__hint">키보드: ←/→ 또는 A/D 이동, 스페이스 발사, P/Esc 일시정지, Enter 시작</p>
+    <p class="visually-hidden" id="live" role="status" aria-live="polite"></p>
+  </main>
+  <script src="game.js"></script>
+  <script src="ui.js"></script>
+</body>
+</html>

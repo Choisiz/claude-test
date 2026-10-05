@@ -1,0 +1,210 @@
+/* 색상은 이 상단 변수에서만 정의한다 */
+:root {
+  --bg: #fcfcfb;
+  --surface: #f4f4f1;
+  --text: #1f2328;
+  --text-muted: #636b74;
+  --border: #e4e4e0;
+  --accent: #2563eb;
+  --on-accent: #ffffff;
+  --overlay-bg: rgba(8, 10, 24, 0.86);
+  --overlay-text: #f1f3f9;
+
+  --canvas-bg: #0a0c1c;
+  --canvas-star: #c9d3f5;
+  --canvas-text: #f1f3f9;
+  --canvas-muted: #aab3d4;
+  --sprite-player: #6fb4ff;
+  --sprite-player-accent: #ff6b6b;
+  --sprite-bee: #ffd23f;
+  --sprite-butterfly: #ff7ab8;
+  --sprite-boss: #5be37d;
+  --sprite-boss-hurt: #b48cff;
+  --sprite-eye: #0a0c1c;
+  --sprite-shot: #ffffff;
+  --sprite-enemy-shot: #ff9f43;
+  --sprite-spark: #ffe08a;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard",
+    "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
+  --radius: 8px;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #121315;
+  --surface: #1b1c1f;
+  --text: #e6e7e9;
+  --text-muted: #9aa0a8;
+  --border: #2c2e33;
+  --accent: #7aa7ff;
+  --on-accent: #0b1220;
+  --overlay-bg: rgba(5, 6, 14, 0.88);
+  --canvas-bg: #05060e;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #121315;
+    --surface: #1b1c1f;
+    --text: #e6e7e9;
+    --text-muted: #9aa0a8;
+    --border: #2c2e33;
+    --accent: #7aa7ff;
+    --on-accent: #0b1220;
+    --overlay-bg: rgba(5, 6, 14, 0.88);
+    --canvas-bg: #05060e;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.app {
+  --reserved: 17rem; /* 캔버스 외 영역 높이 (헤더+HUD+컨트롤+힌트) */
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0.75rem 16px 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.app__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.app__title { margin: 0; font-size: 1.35rem; }
+.app__tools { display: flex; gap: 0.4rem; }
+
+.btn {
+  font: inherit;
+  font-size: 0.95rem;
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.btn:hover:not(:disabled) { border-color: var(--accent); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn--small { font-size: 0.85rem; padding: 0 0.7rem; }
+.btn--primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 600; }
+.overlay .btn { color: var(--text); }
+.overlay .btn--primary { color: var(--on-accent); }
+
+.hud {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.4rem;
+}
+.hud__item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.25rem 0.4rem;
+  text-align: center;
+  min-width: 0;
+}
+.hud__label { display: block; font-size: 0.72rem; color: var(--text-muted); }
+.hud__value { display: block; font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.hud__icons { color: var(--accent); font-size: 0.7rem; letter-spacing: 1px; margin-right: 0.3rem; }
+
+.stage {
+  position: relative;
+  width: min(100%, calc((100vh - var(--reserved)) * 0.75));
+  width: min(100%, calc((100dvh - var(--reserved)) * 0.75));
+  min-width: 240px;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--canvas-bg);
+  border: 1px solid var(--border);
+}
+#canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.overlay {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem;
+  text-align: center;
+  background: var(--overlay-bg);
+  color: var(--overlay-text);
+}
+.overlay[hidden] { display: none; }
+.overlay__title { margin: 0; font-size: 1.6rem; font-weight: 800; }
+.overlay__text { margin: 0; font-size: 0.95rem; color: var(--overlay-text); }
+.overlay__actions { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 0.4rem; }
+
+.controls {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 0.6rem;
+}
+.pad {
+  font: inherit;
+  font-size: 1.2rem;
+  min-height: 56px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pad--fire { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 700; }
+.pad.is-down { filter: brightness(0.85); transform: scale(0.98); }
+
+.app__hint { margin: 0; font-size: 0.8rem; color: var(--text-muted); text-align: center; }
+
+@media (max-width: 400px) {
+  .app { padding-left: 16px; padding-right: 16px; }
+  .btn--small { padding: 0 0.5rem; font-size: 0.8rem; }
+  .hud__label { font-size: 0.66rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pad.is-down { transform: none; }
+}
