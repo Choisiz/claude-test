@@ -27,6 +27,19 @@
 
   <main class="site-main">
     <div class="container" id="app">
+      <section class="apps" aria-labelledby="apps-heading">
+        <h2 class="section-heading" id="apps-heading">미니 웹앱</h2>
+        <article class="app-card">
+          <div class="app-card__preview">
+            <iframe src="apps/2048/" title="2048 게임 미리보기" loading="lazy" tabindex="-1" scrolling="no"></iframe>
+          </div>
+          <div class="app-card__body">
+            <h3 class="app-card__title"><a class="app-card__link" href="apps/2048/">2048</a></h3>
+            <p class="app-card__desc">방향키로 숫자 타일을 밀어 같은 숫자를 합치는 퍼즐 게임. 점수판과 최고 점수, 모바일 스와이프를 지원합니다.</p>
+          </div>
+        </article>
+      </section>
+
       <h1 class="page-heading">글 목록</h1>
       <ul class="post-list" id="post-list"></ul>
     </div>

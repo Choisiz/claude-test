@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>2048</title>
+  <script>
+    // FOUC 방지: 블로그가 저장한 테마를 CSS 로드 전에 반영
+    (function () {
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1 class="app__title">2048</h1>
+      <div class="scores">
+        <div class="score-box" aria-label="현재 점수">
+          <span class="score-box__label">점수</span>
+          <span class="score-box__value" id="score">0</span>
+        </div>
+        <div class="score-box" aria-label="최고 점수">
+          <span class="score-box__label">최고</span>
+          <span class="score-box__value" id="best">0</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="app__bar">
+      <p class="app__desc">방향키 또는 스와이프로 같은 숫자를 합쳐 2048을 만드세요.</p>
+      <button class="btn" id="new-game" type="button">새 게임</button>
+    </div>
+
+    <div class="board" id="board" aria-label="게임 보드">
+      <div class="board__cells" aria-hidden="true">
+        <div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div>
+        <div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div>
+        <div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div>
+        <div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div><div class="board__cell"></div>
+      </div>
+      <div class="board__tiles" id="tiles"></div>
+      <div class="overlay" id="overlay" role="status" hidden>
+        <p class="overlay__title" id="overlay-title"></p>
+        <p class="overlay__text" id="overlay-text"></p>
+        <div class="overlay__actions">
+          <button class="btn btn--primary" id="overlay-primary" type="button"></button>
+          <button class="btn" id="overlay-secondary" type="button">새 게임</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="app__hint">방향키 또는 WASD로 이동합니다.</p>
+    <p class="visually-hidden" id="live" role="status" aria-live="polite"></p>
+  </main>
+  <script type="module" src="ui.js"></script>
+</body>
+</html>

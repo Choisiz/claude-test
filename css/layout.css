@@ -61,6 +61,75 @@
   letter-spacing: -0.01em;
 }
 
+/* 미니 웹앱 카드 */
+.apps {
+  margin-bottom: 3rem;
+}
+
+.section-heading {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+}
+
+.app-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.15s;
+}
+
+.app-card:hover,
+.app-card:focus-within {
+  border-color: var(--accent);
+}
+
+.app-card__preview {
+  height: 22rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+/* 미리보기는 클릭을 가로채지 않게 하고, 카드 전체를 링크로 만든다 */
+.app-card__preview iframe {
+  display: block;
+  width: 181.8%;
+  height: 181.8%;
+  border: 0;
+  pointer-events: none;
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.app-card__body {
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.app-card__title {
+  margin: 0 0 0.25rem;
+  font-size: 1.25rem;
+}
+
+.app-card__link {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.app-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.app-card__desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.975rem;
+}
+
 /* 글 목록 */
 .post-list {
   list-style: none;
