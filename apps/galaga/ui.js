@@ -486,8 +486,8 @@
     // 파티클/별/흔들림은 실제 시간 기준
     if (!reduced()) {
       for (const st of stars) { st.y += st.v * dt; if (st.y > H) { st.y -= H; st.x = Math.random() * W; } }
-      shake = Math.max(0, shake - dt);
     }
+    shake = Math.max(0, shake - dt);
     for (let i = particles.length - 1; i >= 0; i--) {
       const pt = particles[i];
       pt.life -= dt; pt.x += pt.vx * dt; pt.y += pt.vy * dt;

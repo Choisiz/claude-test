@@ -12,6 +12,12 @@
         const t = localStorage.getItem('theme');
         if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
       } catch (e) {}
+      // 블로그 메인의 iframe 미리보기에서 부모가 테마를 바꾸면 즉시 따라간다
+      window.addEventListener('storage', function (ev) {
+        if (ev.key !== 'theme') return;
+        if (ev.newValue === 'light' || ev.newValue === 'dark') document.documentElement.dataset.theme = ev.newValue;
+        else delete document.documentElement.dataset.theme;
+      });
     })();
   </script>
   <link rel="stylesheet" href="style.css">

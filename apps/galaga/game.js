@@ -242,7 +242,7 @@
           dv.baseX += clamp(s.player.x - dv.baseX, -35 * dt, 35 * dt);
           e.y += DIVE_SPEED * dt;
           e.x = clamp(dv.baseX + dv.amp * Math.sin(dv.t * dv.freq), ENEMY_HALF_W, W - ENEMY_HALF_W);
-          if (!dv.fired && e.y >= dv.fireY) {
+          if (!dv.fired && e.y >= dv.fireY && s.ebullets.length < d.maxBullets) {
             dv.fired = true;
             s.ebullets.push({ x: e.x, y: e.y + 10, vy: d.bulletSpeed });
           }

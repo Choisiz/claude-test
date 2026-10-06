@@ -18,8 +18,8 @@ function safeUrl(url) {
 
 /* ---------- 인라인 ---------- */
 
-function formatInline(text) {
-  const stash = [];
+// stash는 링크 라벨 재귀 호출과 공유한다(라벨 안의 이미지 토큰을 복원하려면 같은 보관함이 필요)
+function formatInline(text, stash = []) {
   const hold = (html) => `\u0001${stash.push(html) - 1}\u0002`;
 
   let s = text;
@@ -28,10 +28,12 @@ function formatInline(text) {
     hold(`<img src="${safeUrl(src)}" alt="${alt}" loading="lazy">`)
   );
 
-  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+&quot;[^&]*&quot;)?\)/g, (_, label, href) => {
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)(?:\s+&quot;[^&]*&quot;)?\)/g, (match, label, href) => {
+    // href에 보관 토큰(이미지 조각)이 들어오면 속성 밖으로 HTML이 새므로 링크로 만들지 않는다
+    if (/[\u0001\u0002]/.test(href)) return match;
     const external = /^https?:/i.test(href);
     const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
-    return hold(`<a href="${safeUrl(href)}"${attrs}>${formatInline(label)}</a>`);
+    return hold(`<a href="${safeUrl(href)}"${attrs}>${formatInline(label, stash)}</a>`);
   });
 
   s = s.replace(/\*\*(?!\s)(.+?)(?<!\s)\*\*/g, '<strong>$1</strong>');
@@ -51,6 +53,8 @@ function formatInline(text) {
 
 function inline(src) {
   const codes = [];
+  // 내부 토큰(\u0001~\u0004)과 같은 문자가 입력에 있으면 복원 단계가 오작동하므로 제거한다
+  src = src.replace(/[\u0001-\u0004]/g, '');
   // 코드 스팬을 먼저 빼두어 안쪽이 서식 처리되지 않게 한다
   let s = src.replace(/(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/g, (_, __, code) => {
     codes.push(`<code>${escapeHtml(code.trim())}</code>`);
@@ -238,10 +242,10 @@ function parseBlocks(lines, ids) {
     const heading = line.match(RE.heading);
     if (heading) {
       const level = heading[1].length;
-      let id = slugify(heading[2]);
-      const count = ids.get(id) ?? 0;
-      ids.set(id, count + 1);
-      if (count) id += `-${count}`;
+      const base = slugify(heading[2]);
+      let id = base;
+      for (let n = 1; ids.has(id); n++) id = `${base}-${n}`;
+      ids.set(id, 1);
       html += `<h${level} id="${id}">${inline(heading[2])}</h${level}>`;
       i++;
       continue;
