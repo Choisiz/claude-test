@@ -7,23 +7,24 @@
   --border: #e4e4e0;
   --accent: #2563eb;
   --on-accent: #ffffff;
-  --overlay-bg: rgba(8, 10, 24, 0.86);
-  --overlay-text: #f1f3f9;
+  --overlay-bg: rgba(252, 252, 251, 0.94);
+  --overlay-text: #1f2328;
 
-  --canvas-bg: #0a0c1c;
-  --canvas-star: #c9d3f5;
-  --canvas-text: #f1f3f9;
-  --canvas-muted: #aab3d4;
-  --sprite-player: #6fb4ff;
-  --sprite-player-accent: #ff6b6b;
-  --sprite-bee: #ffd23f;
-  --sprite-butterfly: #ff7ab8;
-  --sprite-boss: #5be37d;
-  --sprite-boss-hurt: #b48cff;
-  --sprite-eye: #0a0c1c;
-  --sprite-shot: #ffffff;
-  --sprite-enemy-shot: #ff9f43;
-  --sprite-spark: #ffe08a;
+  /* 캔버스·스프라이트도 블로그 팔레트(회색 + 파랑 계열)만 사용한다 */
+  --canvas-bg: #f4f4f1;
+  --canvas-star: #cfd0cb;
+  --canvas-text: #1f2328;
+  --canvas-muted: #636b74;
+  --sprite-player: #2563eb;
+  --sprite-player-accent: #1f2328;
+  --sprite-bee: #636b74;
+  --sprite-butterfly: #5f8ff5;
+  --sprite-boss: #1e3a8a;
+  --sprite-boss-hurt: #8fb0fb;
+  --sprite-eye: #f4f4f1;
+  --sprite-shot: #2563eb;
+  --sprite-enemy-shot: #1f2328;
+  --sprite-spark: #2563eb;
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard",
     "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
@@ -39,8 +40,22 @@
   --border: #2c2e33;
   --accent: #7aa7ff;
   --on-accent: #0b1220;
-  --overlay-bg: rgba(5, 6, 14, 0.88);
-  --canvas-bg: #05060e;
+  --overlay-bg: rgba(18, 19, 21, 0.94);
+  --overlay-text: #e6e7e9;
+  --canvas-bg: #1b1c1f;
+  --canvas-star: #3a3d43;
+  --canvas-text: #e6e7e9;
+  --canvas-muted: #9aa0a8;
+  --sprite-player: #7aa7ff;
+  --sprite-player-accent: #e6e7e9;
+  --sprite-bee: #9aa0a8;
+  --sprite-butterfly: #6f93d8;
+  --sprite-boss: #c2d5fa;
+  --sprite-boss-hurt: #3d5a94;
+  --sprite-eye: #1b1c1f;
+  --sprite-shot: #7aa7ff;
+  --sprite-enemy-shot: #e6e7e9;
+  --sprite-spark: #7aa7ff;
   color-scheme: dark;
 }
 
@@ -53,8 +68,22 @@
     --border: #2c2e33;
     --accent: #7aa7ff;
     --on-accent: #0b1220;
-    --overlay-bg: rgba(5, 6, 14, 0.88);
-    --canvas-bg: #05060e;
+    --overlay-bg: rgba(18, 19, 21, 0.94);
+    --overlay-text: #e6e7e9;
+    --canvas-bg: #1b1c1f;
+    --canvas-star: #3a3d43;
+    --canvas-text: #e6e7e9;
+    --canvas-muted: #9aa0a8;
+    --sprite-player: #7aa7ff;
+    --sprite-player-accent: #e6e7e9;
+    --sprite-bee: #9aa0a8;
+    --sprite-butterfly: #6f93d8;
+    --sprite-boss: #c2d5fa;
+    --sprite-boss-hurt: #3d5a94;
+    --sprite-eye: #1b1c1f;
+    --sprite-shot: #7aa7ff;
+    --sprite-enemy-shot: #e6e7e9;
+    --sprite-spark: #7aa7ff;
     color-scheme: dark;
   }
 }
